@@ -1,12 +1,11 @@
 /* global require, module */
-var EmberAddon = require( 'ember-cli/lib/broccoli/ember-addon' );
-var replace = require( 'broccoli-string-replace' );
-var env = require( './config/environment' );
-var packageConfig = require( './package.json' );
-var tree;
+const EmberAddon = require( 'ember-cli/lib/broccoli/ember-addon' );
+const replace = require( 'broccoli-string-replace' );
+const env = require( './config/environment' );
+const packageConfig = require( './package.json' );
 
-module.exports = function() {
-   var app = new EmberAddon({
+module.exports = function( defaults ) {
+   const app = new EmberAddon( defaults, {
        fingerprint: {
            enabled: true,
            exclude: [],
@@ -35,7 +34,7 @@ module.exports = function() {
        type: 'test'
    });
 
-   tree = replace( app.toTree(), {
+   const tree = replace( app.toTree(), {
        files: [
            'index.html',
            'assets/dummy.js'
