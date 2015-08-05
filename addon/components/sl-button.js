@@ -8,13 +8,12 @@ import layout from '../templates/components/sl-button';
  * @memberof module:components/sl-button
  * @enum {String}
  */
-const Size = Object.freeze({
+export const Size = Object.freeze({
     EXTRA_SMALL: 'extra-small',
     LARGE: 'large',
     MEDIUM: 'medium',
     SMALL: 'small'
 });
-export { Size };
 
 /**
  * Valid Bootstrap theme values for buttons
@@ -22,7 +21,7 @@ export { Size };
  * @memberof module:components/sl-button
  * @enum {String}
  */
-const Theme = Object.freeze({
+export const Theme = Object.freeze({
     DANGER: 'danger',
     DEFAULT: 'default',
     HOVER: 'hover',
@@ -32,7 +31,6 @@ const Theme = Object.freeze({
     SUCCESS: 'success',
     WARNING: 'warning'
 });
-export { Theme };
 
 /**
  * @module

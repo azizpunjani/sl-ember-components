@@ -7,11 +7,10 @@ import layout from '../templates/components/sl-tab-panel';
  * @memberof module:components/sl-tab-panel
  * @enum {String}
  */
-const Alignment = Object.freeze({
+export const Alignment = Object.freeze({
     LEFT: 'left',
     RIGHT: 'right'
 });
-export { Alignment };
 
 /**
  * @module
