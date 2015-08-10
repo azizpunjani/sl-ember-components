@@ -1,11 +1,16 @@
-import { moduleForComponent, test } from 'ember-qunit';
 import Ember from 'ember';
+import hbs from 'htmlbars-inline-precompile';
+import { moduleForComponent, test } from 'ember-qunit';
 
-moduleForComponent( 'sl-modal-footer', 'Unit | Component | sl modal footer', {
-    unit: true
+moduleForComponent( 'sl-modal-footer', 'Integration | Component | sl modal footer', {
+    integration: true
 });
 
 test( 'Footer class exists', function( assert ) {
+    this.render( hbs`
+        {{sl-modal-footer}}
+    `);
+
     assert.equal(
         this.$( '.modal-footer' ).length,
         1
@@ -13,6 +18,10 @@ test( 'Footer class exists', function( assert ) {
 });
 
 test( 'Close button exists', function( assert ) {
+    this.render( hbs`
+        {{sl-modal-footer}}
+    `);
+
     assert.equal(
         this.$( 'button[data-dismiss="modal"]' ).length,
         1
@@ -22,9 +31,11 @@ test( 'Close button exists', function( assert ) {
 test( 'Close button text is customizable', function( assert ) {
     const buttonText = 'Custom Close Text';
 
-    this.subject({
-        buttonText: buttonText
-    });
+    this.set( 'buttonText', buttonText );
+
+    this.render( hbs`
+        {{sl-modal-footer buttonText=buttonText}}
+    `);
 
     assert.equal(
         this.$( 'button[data-dismiss="modal"]' ).text().trim(),
@@ -35,9 +46,11 @@ test( 'Close button text is customizable', function( assert ) {
 test( 'Content is yielded', function( assert ) {
     const content = '<div class="test"></div>';
 
-    this.subject({
-        template: Ember.Handlebars.compile( content )
-    });
+    this.render( hbs`
+        {{#sl-modal-footer}}
+            <div class="test"></div>
+        {{/sl-modal-footer}}
+    `);
 
     assert.equal(
         this.$( '.test' ).length,

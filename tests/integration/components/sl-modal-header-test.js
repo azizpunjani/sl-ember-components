@@ -1,11 +1,16 @@
-import { moduleForComponent, test } from 'ember-qunit';
 import Ember from 'ember';
+import hbs from 'htmlbars-inline-precompile';
+import { moduleForComponent, test } from 'ember-qunit';
 
-moduleForComponent( 'sl-modal-header', 'Unit | Component | sl modal header', {
-    unit: true
+moduleForComponent( 'sl-modal-header', 'Integration | Component | sl modal header', {
+    integration: true
 });
 
 test( 'Modal header class exists on child element', function( assert ) {
+    this.render( hbs`
+        {{sl-modal-header}}
+    `);
+
     assert.equal(
         this.$().find( '.modal-header' ).length,
         1
@@ -13,6 +18,10 @@ test( 'Modal header class exists on child element', function( assert ) {
 });
 
 test( 'Close button exists', function( assert ) {
+    this.render( hbs`
+        {{sl-modal-header}}
+    `);
+
     assert.equal(
         this.$().find( '.close' ).length,
         1
@@ -22,10 +31,11 @@ test( 'Close button exists', function( assert ) {
 test( 'Setting title on header works', function( assert ) {
     const title = 'hello world';
 
-    this.subject({
-        title: title
-    });
+    this.set( 'title', title );
 
+    this.render( hbs`
+        {{sl-modal-header title=title}}
+    `);
     assert.equal(
         this.$().find( '.modal-title' ).text(),
         title
@@ -33,11 +43,11 @@ test( 'Setting title on header works', function( assert ) {
 });
 
 test( 'Content is yielded', function( assert ) {
-    const content = '<div class="test"></div>';
-
-    this.subject({
-        template: Ember.Handlebars.compile( content )
-    });
+    this.render( hbs`
+        {{#sl-modal-header title=title}}
+            <div class="test"></div>
+        {{/sl-modal-header}}
+    `);
 
     assert.equal(
         this.$( '.test' ).length,
@@ -46,13 +56,19 @@ test( 'Content is yielded', function( assert ) {
 });
 
 test( 'Modal title\'s id is set to ariaLabelledBy property value', function( assert ) {
-    const component = this.subject({
-        title: 'labelTest'
-    });
+    let ariaLabelledBy;
+
+    this.set( 'title', 'label test' );
+    this.set( 'ariaLabelledBy', ariaLabelledBy );
+
+    this.render( hbs`
+        {{sl-modal-header title=title ariaLabelledBy=ariaLabelledBy}}
+    `);
+    console.log(this);
 
     assert.equal(
-        this.$( '.modal-title' ).prop( 'id' ),
-        component.get( 'ariaLabelledBy' )
+        this.$().find( '.modal-title' ).prop( 'id' ),
+        this.get( 'ariaLabelledBy' )
     );
 });
 
