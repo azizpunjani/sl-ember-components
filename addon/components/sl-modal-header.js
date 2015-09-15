@@ -28,30 +28,25 @@ export default Ember.Component.extend({
     // -------------------------------------------------------------------------
     // Properties
 
+    streamService: Ember.inject.service( 'stream' ),
+
     // -------------------------------------------------------------------------
     // Observers
+
+    initialize: Ember.on(
+        'init',
+        function(){
+            const streamService = this.get( 'streamService' );
+
+            streamService.streams[ 'sl-modal' ].on( 'modalHeaderSetAria', ( ariaLabelledBy ) => {
+                this.set( 'ariaLabelledBy', ariaLabelledBy );
+            });
+
+            streamService.send( 'sl-modal', 'modalHeaderInit' );
+        }
+    )
 
     // -------------------------------------------------------------------------
     // Methods
 
-    /**
-     * ariaLabelledBy computed property, the value
-     * of this property will be set as
-     * the value to the aria-labelledby attribute
-     *
-     * @function
-     * @returns {String}
-     */
-    ariaLabelledBy: Ember.computed(
-        'elementId',
-        function() {
-            const elementId = this.get( 'elementId' );
-
-            if ( elementId ) {
-                return 'modalTitle' + elementId;
-            }
-
-            return null;
-        }
-    )
 });

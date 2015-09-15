@@ -137,16 +137,17 @@ export default Ember.Component.extend( StreamEnabled, {
     // -------------------------------------------------------------------------
     // Observers
 
-    /**
-     * Get ariaLabelledBy target element id
-     *
-     * @function
-     * @returns {undefined}
-     */
-    getLabelledby: Ember.on(
-        'willInsertElement',
-        function() {
-            this.set( 'ariaLabelledBy', this.$( '[id^="modalTitle"]' ).attr( 'id' ) );
+    initialize: Ember.on(
+        'init',
+        function(){
+            const streamService = this.get( 'streamService' );
+            const stream = streamService.create( 'sl-modal' );
+
+            this.set( 'ariaLabelledBy', this.get( 'elementId' ) + '-labelledBy' );
+
+            stream.on( 'modalHeaderInit', () => {
+                streamService.send( 'sl-modal', 'modalHeaderSetAria', this.get( 'ariaLabelledBy') );
+            });
         }
     ),
 
