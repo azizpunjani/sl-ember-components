@@ -151,6 +151,41 @@ export default Ember.Component.extend( StreamEnabled, {
         }
     ),
 
+    initializedEvent: Ember.on(
+        'init',
+        function() {
+            console.log( '%cinitialized sl-modal', 'color: red' );
+        }
+    ),
+
+    willRenderComponent: Ember.on(
+        'willRender',
+        function() {
+            console.log( '%cwill render sl-modal' , 'color: red');
+        }
+    ),
+
+    rendered: Ember.on(
+        'didRender',
+        function() {
+            console.log( '%cdid render sl-modal' , 'color: red');
+        }
+    ),
+
+    willInsert: Ember.on(
+        'willInsertElement',
+        function() {
+            console.log( '%cwill insert sl-modal' , 'color: red');
+        }
+    ),
+
+    didInsert: Ember.on(
+        'didInsertElement',
+        function() {
+            console.log( '%cdid insert sl-modal' , 'color: red');
+        }
+    ),
+
     /**
      * Setup stream actions bindings
      *

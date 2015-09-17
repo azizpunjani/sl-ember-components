@@ -30,21 +30,42 @@ export default Ember.Component.extend({
 
     streamService: Ember.inject.service( 'stream' ),
 
-    // -------------------------------------------------------------------------
-    // Observers
-
-    initialize: Ember.on(
+    initializedEvent: Ember.on(
         'init',
-        function(){
-            const streamService = this.get( 'streamService' );
+        function() {
+            console.log( '%cinitialized sl-modal-header' , 'color: blue' );
+        }
+    ),
 
-            streamService.streams[ 'sl-modal' ].on( 'modalHeaderSetAria', ( ariaLabelledBy ) => {
-                this.set( 'ariaLabelledBy', ariaLabelledBy );
-            });
+    willRenderComponent: Ember.on(
+        'willRender',
+        function() {
+            console.log( '%cwill render sl-modal-header' , 'color: blue' );
+        }
+    ),
 
-            streamService.send( 'sl-modal', 'modalHeaderInit' );
+    rendered: Ember.on(
+        'didRender',
+        function() {
+            console.log( '%cdid render sl-modal-header' , 'color: blue' );
+        }
+    ),
+
+    willInsert: Ember.on(
+        'willInsertElement',
+        function() {
+            console.log( '%cwill insert sl-modal-header' , 'color: blue' );
+        }
+    ),
+
+    didInsert: Ember.on(
+        'didInsertElement',
+        function() {
+            console.log( '%cdid insert sl-modal-header' , 'color: blue' );
         }
     )
+    // -------------------------------------------------------------------------
+    // Observers
 
     // -------------------------------------------------------------------------
     // Methods
