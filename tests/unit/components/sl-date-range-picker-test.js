@@ -102,10 +102,11 @@ test( 'Events from start date input are removed upon willClearRender', function(
 
     const startDateInput = this.$( '.sl-daterange-start-date input' )[ 0 ];
     const jQueryData = Ember.get( Ember.$, '_data' );
+    const events = jQueryData( startDateInput, 'events' );
 
     assert.equal(
         Ember.typeOf(
-            Ember.get( jQueryData( startDateInput, 'events' ), 'change' )
+            Ember.get( jQueryData( startDateInput, 'events' ), 'changeDate' )
         ),
         'array',
         'Start date input has change event listener after render'
@@ -115,11 +116,11 @@ test( 'Events from start date input are removed upon willClearRender', function(
         component.trigger( 'willClearRender' );
     });
 
-    assert.strictEqual(
-        jQueryData( startDateInput, 'events' ),
-        undefined,
-        'Start date input has no event listeners after willClearRender'
+    assert.notOk(
+        'changeDate' in events,
+        'changeDate event handler is unregistered after willClearRender'
     );
+
 });
 
 test( 'label, startDatePlaceholder, and endDatePlaceholder are undefined by default', function( assert ) {

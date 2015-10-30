@@ -82,11 +82,13 @@ export default Ember.Component.extend( ComponentInputId, {
         function() {
             this.set( 'startDateInput', this.$( '.sl-daterange-start-date input' ) );
             this.set( 'endDateInput', this.$( '.sl-daterange-end-date input' ) );
-            this.get( 'startDateInput' ).on( 'change', () => {
-                this.get( 'endDateInput' ).trigger( 'focus' );
-            });
+            this.get( 'startDateInput' ).on( 'change', this.changeHandler );
         }
     ),
+
+    changeHandler(ev){
+
+    },
 
     /**
      * Remove events
@@ -97,8 +99,7 @@ export default Ember.Component.extend( ComponentInputId, {
     unregisterEvents: Ember.on(
         'willClearRender',
         function() {
-            this.get( 'startDateInput' ).off();
-            this.get( 'endDateInput' ).off();
+            this.get( 'startDateInput' ).off( 'changeDate', this.changeHander );
         }
     ),
 
