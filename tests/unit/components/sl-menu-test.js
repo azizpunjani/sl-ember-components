@@ -1,6 +1,7 @@
 import Ember from 'ember';
 import { moduleForComponent, test } from 'ember-qunit';
 import StreamEnabledMixin from 'ember-stream/mixins/stream-enabled';
+import sinon from 'sinon';
 
 const testItems = Ember.A([
     {
@@ -25,6 +26,22 @@ const testItems = Ember.A([
         label: 'Second'
     }
 ]);
+
+const mockStream = {
+    actions: {},
+
+    on( actionName, handler ) {
+        this.actions[ actionName ] = handler;
+    },
+
+    subject: {
+        dispose() {
+            mockStream.actions = {};
+        },
+
+        onCompleted() {}
+    }
+};
 
 moduleForComponent( 'sl-menu', 'Unit | Component | sl menu', {
     unit: true,
