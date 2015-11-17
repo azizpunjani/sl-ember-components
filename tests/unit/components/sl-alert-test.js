@@ -1,5 +1,8 @@
 import { moduleForComponent, test } from 'ember-qunit';
 import TooltipEnabledMixin from 'sl-ember-components/mixins/sl-tooltip-enabled';
+import testFunction from '../../helpers/test-helper';
+
+console.log( testFunction() );
 
 moduleForComponent( 'sl-alert', 'Unit | Component | sl alert', {
     unit: true
