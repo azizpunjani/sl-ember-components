@@ -73,12 +73,18 @@ rowActions: [
             detailHeaderComponent="demos/sl-grid-detail-header"
             footerPath="demos/sl-grid/footer"
             height=400
-            rowActions=rowActions
-            sendLog=(action "logName")
             sortColumn="sortColumn"
             totalCount=totalCount
-        }}
-            <h3>Colors</h3>
+        as |grid| }}
+
+            {{#grid.row-action as |row|}}
+                {{#if row.canDelete}}
+                    {{#sl-button click=(action "deleteRow" row)}}
+                       Delete
+                    {{/sl-button}}
+                {{/if}}
+            {{/grid.row-action}}
+
         {{/sl-grid}}
     </div>
 </div>

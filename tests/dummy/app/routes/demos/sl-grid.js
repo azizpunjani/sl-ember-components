@@ -6,16 +6,19 @@ export default Ember.Route.extend({
             {
                 name: 'Red',
                 fruit: 'Apple',
+                canDelete: true,
                 hexCode: '#FF0000'
             },
             {
                 name: 'Orange',
                 fruit: 'Orange',
+                canDelete: true,
                 hexCode: '#FF7700'
             },
             {
                 name: 'Yellow',
                 fruit: 'Banana',
+                canDelete: true,
                 hexCode: '#FFFF00'
             },
             {

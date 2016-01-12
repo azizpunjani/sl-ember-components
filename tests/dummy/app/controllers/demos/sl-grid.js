@@ -21,6 +21,10 @@ export default Ember.Controller.extend({
             }
 
             this.set( 'sortProperties', [ columnString ] );
+        },
+
+        deleteRow( row ) {
+            this.get( 'model' ).removeObject( row );
         }
     },
 
@@ -44,13 +48,6 @@ export default Ember.Controller.extend({
             valuePath: 'hexCode'
         }
     ]),
-
-    rowActions: [
-        {
-            label: 'Log',
-            action: 'sendLog'
-        }
-    ],
 
     totalCount: 6
 });
