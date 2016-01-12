@@ -77,13 +77,13 @@ rowActions: [
             totalCount=totalCount
         as |grid| }}
 
-            {{#grid.row-action as |row|}}
+            {{#grid.row-actions as |row|}}
                 {{#if row.canDelete}}
                     {{#sl-button click=(action "deleteRow" row)}}
                        Delete
                     {{/sl-button}}
                 {{/if}}
-            {{/grid.row-action}}
+            {{/grid.row-actions}}
 
         {{/sl-grid}}
     </div>
