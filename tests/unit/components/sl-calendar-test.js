@@ -4,6 +4,7 @@ import { moduleForComponent, test } from 'ember-qunit';
 import sinon from 'sinon';
 import { skip } from 'qunit';
 import globalLibraries from '../../helpers/sl/synchronous/global-libraries';
+console.log('test');
 
 moduleForComponent( 'sl-calendar', 'Unit | Component | sl calendar', {
     needs: [
@@ -867,6 +868,7 @@ test( 'Dependent keys are correct', function( assert ) {
 });
 
 test( 'There are no references to Ember.$, $ or jQuery', function( assert ) {
+    console.log( globalLibraries );
     globalLibraries.setupSpies();
 
     const component = this.subject();

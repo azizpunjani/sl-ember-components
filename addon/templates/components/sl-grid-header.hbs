@@ -1,0 +1,19 @@
+<tr>
+    {{#each columns as |column index|}}
+        <td>
+            {{yield
+                (hash
+                    cell=(component 'sl-grid-column-header'
+                        sortable=column.sortable
+                        sorted=column.sorted
+                        class=column.headerClass
+                        column=column
+                        onClick=sortColumn
+                    )
+                )
+                column
+                index
+            }}
+        </td>
+    {{/each}}
+</tr>

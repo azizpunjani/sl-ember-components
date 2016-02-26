@@ -1,0 +1,23 @@
+{{#each content as |row rowIndex|}}
+    {{#sl-grid-row record=row onClick=(action rowClick row)}}
+        {{#each columns as |column columnIndex|}}
+            {{#if hasBlock}}
+                {{yield
+                    (hash
+                        cell=(component
+                            'sl-grid-cell'
+                            column=column
+                            record=row
+                        )
+                    )
+                    row
+                    column
+                    rowIndex
+                    columnIndex
+                }}
+            {{else}}
+                {{sl-grid-cell column=column record=row}}
+            {{/if}}
+        {{/each}}
+    {{/sl-grid-row}}
+{{/each}}

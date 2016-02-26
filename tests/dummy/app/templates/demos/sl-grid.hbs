@@ -67,24 +67,40 @@ rowActions: [
     }
 ]</pre>
     </div>
+    <div class="col-lg-6">
+        <h6>Rendered Component</h6>
+        {{sl-grid columns=columns content=sortedModel}}
+    </div>
 
     <div class="col-lg-6">
         <h6>Rendered Component</h6>
-        {{#sl-grid
-            columns=columns
-            content=sortedModel
-            detailComponent="demos/sl-grid-detail"
-            detailFooterComponent="demos/sl-grid-detail-footer"
-            detailHeaderComponent="demos/sl-grid-detail-header"
-            fixedHeader=true
-            footerPath="demos/sl-grid/footer"
-            height="21em"
-            rowActions=rowActions
-            sendLog=(action "logName")
-            sortColumn="sortColumn"
-            totalCount=totalCount
-        }}
-            <h3>Colors</h3>
+        {{#sl-grid height="21em" as |grid|}}
+            {{#grid.table columns=columns content=sortedModel as |table|}}
+                {{#table.header sortColumn=(action "sortColumn") as |header column|}}
+                    {{#header.cell}}
+                        {{column.title}}
+                    {{/header.cell}}
+                {{/table.header}}
+
+                {{#table.body as |body row column|}}
+                    {{#body.cell}}
+                    {{/body.cell}}
+                {{/table.body}}
+            {{/grid.table}}
+
+            {{#grid.details as |details|}}
+                {{#details.header}}
+                    <h1>{{grid.activeRecord.title}}</h1>
+                {{/details.header}}
+
+                {{#details.body}}
+                    body test
+                {{/details.body}}
+
+                {{#details.footer}}
+                    details footer test
+                {{/details.footer}}
+            {{/grid.details}}
         {{/sl-grid}}
     </div>
 </div>

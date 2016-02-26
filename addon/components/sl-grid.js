@@ -119,9 +119,6 @@ export default Ember.Component.extend( ClassPrefix, Namespace, {
          * @returns {undefined}
          */
         openDetailPane() {
-            if ( this.get( 'detailPaneOpen' ) || !this.get( 'detailComponent' ) || !this.get( 'activeRow' ) ) {
-                return;
-            }
 
             this.set( 'detailPaneOpen', true );
 
@@ -143,12 +140,9 @@ export default Ember.Component.extend( ClassPrefix, Namespace, {
          * @returns {undefined}
          */
         rowClick( row ) {
-            if ( this.get( 'rowClick' ) ) {
-                this.sendAction( 'rowClick', row );
-            } else if ( this.get( 'detailComponent' ) ) {
+            console.log( 'row was clicked', row );
                 this.send( 'selectRow', row );
                 this.send( 'openDetailPane' );
-            }
         },
 
         /**

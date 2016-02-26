@@ -1,150 +1,21 @@
-<header>
-    <div class="row">
-        <div class="col-sm-6">
-            {{yield}}
-        </div>
-
-        {{#if filterComponent}}
-            <div class="col-sm-6 text-right">
-                {{#sl-button
-                    action="toggleFilterPane"
-                    size="small"
-                }}
-                    {{filterButtonLabel}}
-                {{/sl-button}}
-            </div>
-        {{/if}}
-    </div>
-
-    {{#if filterComponent}}
-        {{#if filterPaneOpen}}
-            <div class="row">
-                <div class="col-sm-12 filter-content">
-                    {{component filterComponent}}
-                </div>
-            </div>
-        {{/if}}
-    {{/if}}
-</header>
-
-<div class="{{if loading "sl-loading"}}">
-    <table class="table table-hover table-striped">
-        <thead>
-            <tr>
-                {{#each columns as |column|}}
-                    {{#sl-grid-column-header
-                        sortable=column.sortable
-                        sorted=column.sorted
-                        class=column.headerClass
-                        column=column
-                        onClick="sortColumn"
-                    }}
-                        {{column.title}}
-                    {{/sl-grid-column-header}}
-                {{/each}}
-
-                {{#if rowActions}}
-                    <th class="actions-cell"></th>
-                {{/if}}
-            </tr>
-        </thead>
-        <tbody>
-            <!-- duplicate header for proper spacing w/ fixed table header -->
-            <tr>
-                {{#each columns as |column|}}
-                    {{#sl-grid-column-header
-                        sortable=column.sortable
-                        sorted=column.sorted
-                        class=column.headerClass
-                        column=column
-                        onClick="sortColumn"
-                    }}
-                        {{column.title}}
-                    {{/sl-grid-column-header}}
-                {{/each}}
-
-                {{#if rowActions}}
-                    <th class="actions-cell"></th>
-                {{/if}}
-            </tr>
-            {{#each content as |row|}}
-                {{#sl-grid-row record=row onClick="rowClick"}}
-                    {{#each columns as |column|}}
-                        {{sl-grid-cell
-                            column=column
-                            record=row
-                        }}
-                    {{/each}}
-
-                    {{#if rowActions}}
-                        <td class="actions-cell column-small">
-                            {{#sl-drop-button
-                                align="right"
-                                label=actionsButtonLabel
-                                size="extra-small"
-                                theme="hover"
-                            }}
-                                {{#each rowActions as |rowAction|}}
-                                    {{sl-drop-option
-                                        action="dropButtonSelect"
-                                        actionContext=rowAction.action
-                                        data=row
-                                        label=rowAction.label
-                                    }}
-                                {{/each}}
-                            {{/sl-drop-button}}
-                        </td>
-                    {{/if}}
-                {{/sl-grid-row}}
-            {{/each}}
-        </tbody>
-    </table>
-</div>
-
-<div class="panel panel-default {{if detailPaneOpen "show"}} {{unless detailPaneOpen "hidden"}}">
-    <header class="panel-heading">
-        <button {{action "closeDetailPane"}} class="pull-right close" aria-label="Close" type="button">
-            <span class="sl-icon-close">Close</span>
-        </button>
-
-        <span class="title">
-            {{#if detailHeaderComponent}}
-                {{component detailHeaderComponent model=activeRow.record}}
-            {{/if}}
-        </span>
-    </header>
-
-    <div class="panel-body">
-        {{#if detailComponent}}
-            {{component detailComponent model=activeRow.record}}
-        {{/if}}
-    </div>
-
-    <footer class="panel-footer">
-        {{#if detailFooterComponent}}
-            {{component detailFooterComponent model=activeRow.record}}
-        {{/if}}
-    </footer>
-</div>
-
-{{#if displayFooter}}
-    <footer>
-        <div class="row">
-            <div class="col-xs-6">
-                {{#if footerPath}}
-                    {{partial footerPath}}
-                {{/if}}
-            </div>
-            {{#if showPagination}}
-                <div class="col-xs-6 text-right">
-                    {{sl-pagination
-                        busy=loading
-                        changePage="changePage"
-                        currentPage=currentPage
-                        totalPages=totalPages
-                    }}
-                </div>
-            {{/if}}
-        </div>
-    </footer>
+{{#if hasBlock}}
+    {{yield
+        (hash
+            table=(
+                component "sl-grid-table"
+                rowClick=(action "rowClick")
+                columns=columns
+                content=sortedModel
+            )
+            details=(
+                component "sl-grid-details"
+                detailPaneOpen=detailPaneOpen
+                closeDetailPane=(action "closeDetailPane")
+            )
+            activeRecord=activeRecord
+        )
+    }}
+{{else}}
+    {{sl-grid-table sortColumn=sortColumn rowClick=(action "rowClick") columns=columns content=content}}
 {{/if}}
+

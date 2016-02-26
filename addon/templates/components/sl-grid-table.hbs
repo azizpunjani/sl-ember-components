@@ -1,0 +1,25 @@
+{{#if hasBlock}}
+    {{yield
+        (hash
+            header=(component 'sl-grid-header' columns=columns)
+            body=(
+                component 'sl-grid-body'
+                rowClick=rowClick
+                content=content
+                columns=columns
+            )
+        )
+    }}
+{{else}}
+    {{#sl-grid-header
+       columns=columns
+       sortColumn=sortColumn as |header column|}}
+           {{#header.cell}}
+               {{column.title}}
+           {{/header.cell}}
+    {{/sl-grid-header}}
+
+    {{#sl-grid-body rowClick=rowClick columns=columns content=content as |body row column|}}
+        {{body.cell}}
+    {{/sl-grid-body}}
+{{/if}}

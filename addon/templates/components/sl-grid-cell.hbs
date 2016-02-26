@@ -1,1 +1,5 @@
-{{contentValue}}
+{{#if hasBlock}}
+    {{yield}}
+{{else}}
+    {{contentValue}}
+{{/if}}

@@ -1,0 +1,21 @@
+<footer>
+    <div class="row">
+        <div class="col-xs-6">
+            {{#if footerPath}}
+                {{partial footerPath}}
+            {{else}}
+                {{yield}}
+            {{/if}}
+        </div>
+        {{#if showPagination}}
+            <div class="col-xs-6 text-right">
+                {{sl-pagination
+                    busy=loading
+                    changePage="changePage"
+                    currentPage=currentPage
+                    totalPages=totalPages
+                }}
+            </div>
+        {{/if}}
+    </div>
+</footer>
