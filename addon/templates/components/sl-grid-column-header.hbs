@@ -1,4 +1,8 @@
-{{yield}}
+{{#if hasBlock}}
+    {{yield}}
+{{else}}
+    {{column.title}}
+{{/if}}
 
 {{#if sortable}}
     <i class="sl-icon-sortable"></i>

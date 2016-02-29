@@ -1,9 +1,7 @@
-<div class="panel panel-default {{if detailPaneOpen "show"}} {{unless detailPaneOpen "hidden"}}">
-    {{yield
-        (hash
-            header=(component "sl-grid-details-header")
-            body=(component "sl-grid-details-body")
-            footer=(component "sl-grid-details-footer")
-        )
-    }}
-</div>
+{{yield
+    (hash
+        header=(component "sl-grid-details-header")
+        body=(component "sl-grid-details-body")
+        footer=(component "sl-grid-details-footer")
+    )
+}}

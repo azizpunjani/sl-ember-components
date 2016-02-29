@@ -5,7 +5,7 @@
                 component "sl-grid-table"
                 rowClick=(action "rowClick")
                 columns=columns
-                content=sortedModel
+                content=content
             )
             details=(
                 component "sl-grid-details"
@@ -18,4 +18,3 @@
 {{else}}
     {{sl-grid-table sortColumn=sortColumn rowClick=(action "rowClick") columns=columns content=content}}
 {{/if}}
-
